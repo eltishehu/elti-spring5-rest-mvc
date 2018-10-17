@@ -1,15 +1,19 @@
 package com.eltishehu.restmvcproject.domain;
 
 import lombok.Data;
-import org.springframework.data.annotation.Id;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+;
 
 /**
  * Created by e.sh. on 17-Oct-18
  */
 @Data
+@Entity
 public class Category {
 
     @Id

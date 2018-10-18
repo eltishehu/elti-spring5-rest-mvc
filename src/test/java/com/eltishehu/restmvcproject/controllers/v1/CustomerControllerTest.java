@@ -1,6 +1,8 @@
 package com.eltishehu.restmvcproject.controllers.v1;
 
 import com.eltishehu.restmvcproject.api.v1.model.CustomerDTO;
+import com.eltishehu.restmvcproject.exceptions.ResourceNotFoundException;
+import com.eltishehu.restmvcproject.exceptions.handlers.RestResponseEntityExceptionHandler;
 import com.eltishehu.restmvcproject.services.CustomerService;
 import org.junit.Before;
 import org.junit.Test;
@@ -41,7 +43,9 @@ public class CustomerControllerTest {
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
 
-        mockMvc = MockMvcBuilders.standaloneSetup(customerController).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(customerController)
+                    .setControllerAdvice(new RestResponseEntityExceptionHandler())
+                    .build();
     }
 
     @Test
@@ -172,5 +176,15 @@ public class CustomerControllerTest {
 
         verify(customerService).deleteCustomerById(anyLong());
 
+    }
+
+    @Test
+    public void testNotFoundException() throws Exception {
+
+        when(customerService.getCustomerById(anyLong())).thenThrow(ResourceNotFoundException.class);
+
+        mockMvc.perform(get(CustomerController.BASE_URL + "/222")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
     }
 }

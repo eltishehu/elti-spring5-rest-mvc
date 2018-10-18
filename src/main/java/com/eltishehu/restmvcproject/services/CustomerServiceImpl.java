@@ -4,6 +4,7 @@ import com.eltishehu.restmvcproject.api.v1.mapper.CustomerMapper;
 import com.eltishehu.restmvcproject.api.v1.model.CustomerDTO;
 import com.eltishehu.restmvcproject.controllers.v1.CustomerController;
 import com.eltishehu.restmvcproject.domain.Customer;
+import com.eltishehu.restmvcproject.exceptions.ResourceNotFoundException;
 import com.eltishehu.restmvcproject.repositories.CustomerRepository;
 import org.springframework.stereotype.Service;
 
@@ -53,7 +54,7 @@ public class CustomerServiceImpl implements CustomerService {
                     return customerDTO;
 
                 })
-                .orElseThrow(RuntimeException::new); //TODO implement better exception handling
+                .orElseThrow(ResourceNotFoundException::new);
 
     }
 
@@ -104,7 +105,7 @@ public class CustomerServiceImpl implements CustomerService {
 
                     return returnDTO;
 
-                }).orElseThrow(RuntimeException::new); //TODO implement better exception handling
+                }).orElseThrow(ResourceNotFoundException::new);
 
     }
 

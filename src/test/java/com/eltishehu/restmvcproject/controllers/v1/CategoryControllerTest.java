@@ -1,6 +1,8 @@
 package com.eltishehu.restmvcproject.controllers.v1;
 
 import com.eltishehu.restmvcproject.api.v1.model.CategoryDTO;
+import com.eltishehu.restmvcproject.exceptions.ResourceNotFoundException;
+import com.eltishehu.restmvcproject.exceptions.handlers.RestResponseEntityExceptionHandler;
 import com.eltishehu.restmvcproject.services.CategoryService;
 import org.junit.Before;
 import org.junit.Test;
@@ -45,7 +47,9 @@ public class CategoryControllerTest {
         // not needed anymore because of the @InjectMocks annotation
         // categoryController = new CategoryController(categoryService);
 
-        mockMvc = MockMvcBuilders.standaloneSetup(categoryController).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(categoryController)
+                    .setControllerAdvice(new RestResponseEntityExceptionHandler())
+                    .build();
     }
 
     @Test
@@ -82,6 +86,16 @@ public class CategoryControllerTest {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", equalTo(NAME)));
+    }
+
+    @Test
+    public void testGetByNameNotFound() throws Exception {
+
+        when(categoryService.getCategoryByName(anyString())).thenThrow(ResourceNotFoundException.class);
+
+        mockMvc.perform(get(CategoryController.BASE_URL + "/Foo")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
     }
 
 }

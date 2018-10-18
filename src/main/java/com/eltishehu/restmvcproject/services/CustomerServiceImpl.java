@@ -2,6 +2,7 @@ package com.eltishehu.restmvcproject.services;
 
 import com.eltishehu.restmvcproject.api.v1.mapper.CustomerMapper;
 import com.eltishehu.restmvcproject.api.v1.model.CustomerDTO;
+import com.eltishehu.restmvcproject.domain.Customer;
 import com.eltishehu.restmvcproject.repositories.CustomerRepository;
 import org.springframework.stereotype.Service;
 
@@ -52,6 +53,21 @@ public class CustomerServiceImpl implements CustomerService {
 
                 })
                 .orElseThrow(RuntimeException::new); //TODO implement better exception handling
+
+    }
+
+    @Override
+    public CustomerDTO createNewCustomer(CustomerDTO customerDTO) {
+
+        Customer customer = customerMapper.customerDtoToCustomer(customerDTO);
+
+        Customer savedCustomer = customerRepository.save(customer);
+
+        CustomerDTO returnDTO = customerMapper.customerToCustomerDTO(savedCustomer);
+
+        returnDTO.setCustomerUrl("/api/v1/customer/" + savedCustomer.getId());
+
+        return returnDTO;
 
     }
 }

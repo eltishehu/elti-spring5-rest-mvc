@@ -3,6 +3,7 @@ package com.eltishehu.restmvcproject.services;
 import com.eltishehu.restmvcproject.api.v1.mapper.CategoryMapper;
 import com.eltishehu.restmvcproject.api.v1.model.CategoryDTO;
 import com.eltishehu.restmvcproject.repositories.CategoryRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -10,6 +11,7 @@ import java.util.stream.Collectors;
 /**
  * Created by e.sh. on 18-Oct-18
  */
+@Service
 public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryMapper categoryMapper;

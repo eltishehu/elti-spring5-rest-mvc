@@ -2,6 +2,7 @@ package com.eltishehu.restmvcproject.services;
 
 import com.eltishehu.restmvcproject.api.v1.mapper.CustomerMapper;
 import com.eltishehu.restmvcproject.api.v1.model.CustomerDTO;
+import com.eltishehu.restmvcproject.controllers.v1.CustomerController;
 import com.eltishehu.restmvcproject.domain.Customer;
 import com.eltishehu.restmvcproject.repositories.CustomerRepository;
 import org.junit.Before;
@@ -95,7 +96,7 @@ public class CustomerServiceImplTest {
 
         //then
         assertEquals(customerDTO.getFirstname(), savedDto.getFirstname());
-        assertEquals("/api/v1/customer/1", savedDto.getCustomerUrl());
+        assertEquals(CustomerController.BASE_URL + "/1", savedDto.getCustomerUrl());
     }
 
     @Test
@@ -117,7 +118,7 @@ public class CustomerServiceImplTest {
 
         //then
         assertEquals(customerDTO.getFirstname(), savedDto.getFirstname());
-        assertEquals("/api/v1/customer/1", savedDto.getCustomerUrl());
+        assertEquals(CustomerController.BASE_URL + "/1", savedDto.getCustomerUrl());
     }
 
     @Test

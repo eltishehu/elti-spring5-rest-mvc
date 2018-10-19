@@ -1,0 +1,23 @@
+package com.eltishehu.restmvcproject.services;
+
+import com.eltishehu.restmvcproject.api.v1.model.VendorDTO;
+import com.eltishehu.restmvcproject.api.v1.model.VendorListDTO;
+
+/**
+ * Created by e.sh. on 19-Oct-18
+ */
+public interface VendorService {
+
+    VendorDTO getVendorById(Long id);
+
+    VendorListDTO getAllVendors();
+
+    VendorDTO createNewVendor(VendorDTO vendorDTO);
+
+    VendorDTO saveVendorByDTO(Long id, VendorDTO vendorDTO);
+
+    VendorDTO patchVendor(Long id, VendorDTO vendorDTO);
+
+    void deleteVendorById(Long id);
+
+}

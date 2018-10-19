@@ -3,12 +3,15 @@ package com.eltishehu.restmvcproject.controllers.v1;
 import com.eltishehu.restmvcproject.api.v1.model.CustomerDTO;
 import com.eltishehu.restmvcproject.api.v1.model.CustomerListDTO;
 import com.eltishehu.restmvcproject.services.CustomerService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by e.sh. on 18-Oct-18
  */
+@Api(description = "This is my Customer Controller")
 @RestController
 @RequestMapping(CustomerController.BASE_URL)
 public class CustomerController {
@@ -23,6 +26,7 @@ public class CustomerController {
 
     }
 
+    @ApiOperation(value = "This will get a list of customers", notes = "These are some notes about the API.")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public CustomerListDTO getListOfCustomers() {
